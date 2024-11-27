@@ -1,4 +1,6 @@
 const {ValidationError} = require('../custom_exeptions/index');
+const ytdl = require("@distube/ytdl-core");
+
 
 
 function validateMessage({ message, bot }) {
@@ -7,7 +9,7 @@ function validateMessage({ message, bot }) {
     console.log('chatId', chatId);
     console.log('text', text);
 
-    if (!text || !text.startsWith('http')) {
+    if (!text || !ytdl.validateURL(text)) {
        throw new ValidationError('Please send a valid YouTube URL!');
     }
 
