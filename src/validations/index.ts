@@ -1,0 +1,1 @@
+export {default as youtubeLinkValidator} from './youtube-url';
