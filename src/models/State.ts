@@ -14,6 +14,7 @@ export default class State extends Model<StateAttributes, StateCreationAttribute
     public state!: string;
     public userId!: number;
     public username!: string;
+    public full_name!: string;
     public status!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;

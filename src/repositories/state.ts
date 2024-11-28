@@ -13,13 +13,13 @@ export default class StateRepository {
         return await StatesModel.findAll();
     }
 
-    async updateState(id: number, stateValue: string): Promise<StatesModel | null> {
-        const state = await StatesModel.findOne({where: {chatId: id}});
-        if (!state) return null;
+    async updateState(id: number, data: Partial<createStateDTO>): Promise<boolean> {
+        const [updatedCount] = await StatesModel.update(data, {
+            where: { chatId: id },
+            returning: true,
+        });
 
-        state.state = stateValue;
-        await state.save();
-        return state;
+       return !(updatedCount === 0);
     }
 
     async deleteState(id: number): Promise<boolean> {

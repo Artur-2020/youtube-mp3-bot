@@ -7,6 +7,4 @@ export default function (text: string) {
     if (!ytdl.validateURL(text)) {
             throw new ValidationError(invalidYoutubeURL);
     }
-
-    console.log('text')
 }

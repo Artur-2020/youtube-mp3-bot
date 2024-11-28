@@ -1,9 +1,8 @@
-import TelegramBot from 'node-telegram-bot-api';
-import {Message} from "node-telegram-bot-api";
 import {startHandler, audioHandler, otherHandler} from './commands';
+import {MessageHandlerInput} from "../interfaces";
 
 
-export async function messageHandler({message, bot}: { message: Message, bot: TelegramBot }) {
+export async function messageHandler({message, bot}: MessageHandlerInput) {
 
     const {chat: {id: chatId}, text} = message;
 
@@ -11,12 +10,12 @@ export async function messageHandler({message, bot}: { message: Message, bot: Te
 
     switch (responseText) {
         case '/start':
-            await startHandler(chatId, bot)
+            await startHandler({chatId, bot})
             break;
 
         case '/audio':
             // Set state to expect a YouTube link
-            await audioHandler(chatId, bot);
+            await audioHandler({chatId, bot});
             break;
 
         case '/lyrics':

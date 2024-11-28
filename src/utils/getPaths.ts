@@ -19,8 +19,3 @@ export const getAudioPath = () => {
     return join(resolvedPath, audioDir, `audio_${Date.now()}.mp3`);
 }
 
-export const removeTemporaryFiles = async ({audioPath, videoPath}: {audioPath: string, videoPath: string}) => {
-    await fsExtra.remove(videoPath);
-    await fsExtra.remove(audioPath);
-
-}

@@ -8,13 +8,11 @@ export default async function downloadVideo(videoPath: string, youtubeUrl: strin
 
         videoStream.pipe(writeStream);
 
-        console.log(`Downloading video to ${videoPath}...`);
         await new Promise<void>((resolve, reject) => {
             videoStream.on('end', resolve);
             videoStream.on('error', reject);
         });
 
-        console.log(`Download completed: ${videoPath}`);
     } catch (e) {
         console.log('Error during video download:', e);
         throw e;

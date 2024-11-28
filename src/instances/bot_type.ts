@@ -13,7 +13,6 @@ export class BotSingleton {
             return BotSingleton.instance;
         }
 
-        console.log('Creating a new Telegram bot instance...');
         this.bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
         BotSingleton.instance = this;
@@ -21,11 +20,9 @@ export class BotSingleton {
 
     private async initializeCommands(): Promise<void> {
         try {
-            console.log('Setting bot commands...');
             await this.bot?.setMyCommands(BOT_COMMANDS);
-            console.log('Bot commands set successfully.');
         } catch (error) {
-            console.error('Failed to set bot commands:', error);
+            throw error;
         }
     }
 

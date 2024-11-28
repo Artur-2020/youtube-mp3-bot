@@ -20,17 +20,18 @@ class StateService {
         return await this.repository.getAllStates();
     }
 
-    async updateState(id: number, state: string) {
-        return await this.repository.updateState(id, state);
+    async updateState(id: number, data: Partial<createStateDTO>) {
+        return await this.repository.updateState(id, data);
     }
 
     async deleteState(id: number) {
         return await this.repository.deleteState(id);
     }
 
-    async getStateValueByChatId(chatId: number) {
+    async getStatePropertyByChatId(chatId: number, property: keyof createStateDTO) {
         const state = await this.repository.getStateByChatId(chatId);
-        return state?.state;
+        if (!state) return null;
+        return state[property];
     }
 }
 

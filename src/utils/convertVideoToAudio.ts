@@ -2,7 +2,6 @@ import ffmpeg from 'fluent-ffmpeg';
 
 export default async function convertVideoToAudio(videoPath: string, audioPath: string): Promise<void> {
     try {
-        console.log(`Converting video to audio: ${audioPath}...`);
         await new Promise<void>((resolve, reject) => {
             ffmpeg(videoPath)
                 .audioCodec('libmp3lame')
@@ -12,8 +11,8 @@ export default async function convertVideoToAudio(videoPath: string, audioPath: 
                 .save(audioPath);
         });
 
-        console.log(`Conversion completed: ${audioPath}`);
     } catch (e) {
         console.log('Error during video to audio conversion:', e);
+        throw e;
     }
 }
