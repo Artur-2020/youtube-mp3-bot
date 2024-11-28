@@ -1,23 +1,17 @@
-import * as fsExtra from 'fs-extra';
-import * as path from 'path';
 import downloadVideo from   '../utils/downloadVideo';
 import convertToAudio from '../utils/convertVideoToAudio';
-import TelegramBot from 'node-telegram-bot-api';
-
-async function downloadHandler(message: TelegramBot.Message, bot: TelegramBot): Promise<void> {
-    const chatId = message.chat.id;
-    const youtubeUrl = message.text as string;
-    bot.sendMessage(chatId, 'Your request is processing, please wait');
-
-    const resolvedPath = path.resolve();
-    const videoDir = 'downloads';
-    const audioDir = 'downloads/audio';
-    const videoPath = path.join(resolvedPath, videoDir, `video_${Date.now()}.mp4`);
-    const audioPath = path.join(resolvedPath, audioDir, `audio_${Date.now()}.mp3`);
+import {getBotInstance} from '../instances/bot';
+import {ensureAudioVideoDirsExists, getVideoPath, getAudioPath, removeTemporaryFiles} from '../utils/getPaths'
+import {StatesService} from "../services";
+import {STATE_VALUES} from "../constants";
+async function downloadHandler(youtubeUrl: string, chatId: number): Promise<void> {
+    const bot = await getBotInstance();
 
     try {
-        await fsExtra.ensureDir(videoDir);
-        await fsExtra.ensureDir(audioDir);
+        await ensureAudioVideoDirsExists();
+
+        const audioPath = getAudioPath();
+        const videoPath = getVideoPath();
 
         await downloadVideo(videoPath, youtubeUrl);
         await convertToAudio(videoPath, audioPath);
@@ -25,10 +19,10 @@ async function downloadHandler(message: TelegramBot.Message, bot: TelegramBot): 
         await bot.sendAudio(chatId, audioPath);
 
         console.log('Audio sent successfully!');
-        await fsExtra.remove(videoPath);
-        await fsExtra.remove(audioPath);
 
-        console.log('Temporary files cleaned up.');
+        await removeTemporaryFiles({audioPath, videoPath});
+
+        await StatesService.updateState(chatId, STATE_VALUES.ACTIVE);
     } catch (error) {
         throw error;
     }

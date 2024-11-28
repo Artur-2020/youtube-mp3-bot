@@ -19,4 +19,9 @@ requiredEnvVars.forEach((varName) => {
 
 export const config = {
     botToken: process.env.BOT_TOKEN as string,
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT as string) || 5432,
+    database: process.env.DB_NAME || 'my_database',
+    username: process.env.DB_USER || 'my_user',
+    password: process.env.DB_PASSWORD || 'my_password',
 };

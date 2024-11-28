@@ -1,16 +1,20 @@
-import TelegramBot from 'node-telegram-bot-api';
-import { ValidationError } from '../custom_exeptions/index';
+import {ValidationError} from '../custom_exeptions';
+import {getBotInstance} from "../instances/bot";
+import {RESPONSES} from "../constants";
 
-export function handleError(chatId: number, bot: TelegramBot, error: Error) {
+const {somethingWentWrong, enospcError, ffmpegError} = RESPONSES;
+export async function handleError(chatId: number, error: Error) {
+    const bot = await getBotInstance();
     console.error('Error:', error);
 
+    let text = somethingWentWrong;
     if (error instanceof ValidationError) {
-        bot.sendMessage(chatId, error.message);
+        text = error.message;
     } else if (error.message.includes('ENOSPC')) {
-        bot.sendMessage(chatId, 'Server storage is full. Please try again later.');
+        text = enospcError;
     } else if (error.message.includes('ffmpeg')) {
-        bot.sendMessage(chatId, 'Audio conversion failed. Please contact support.');
-    } else {
-        bot.sendMessage(chatId, 'Something went wrong! Please try again later.');
+        text = ffmpegError;
     }
+
+    await bot.sendMessage(chatId, text);
 }
