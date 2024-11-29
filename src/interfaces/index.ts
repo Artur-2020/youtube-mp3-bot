@@ -9,6 +9,7 @@ export interface createStateDTO {
     full_name?: string | null;
     userId: number
     status: string;
+    generatedAudioCount: number
 }
 export interface StateAttributes extends createStateDTO {
     id: number;

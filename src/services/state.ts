@@ -29,9 +29,14 @@ class StateService {
     }
 
     async getStatePropertyByChatId(chatId: number, property: keyof createStateDTO) {
-        const state = await this.repository.getStateByChatId(chatId);
+        const state = await this.repository.getStateByChatId(chatId, [property]);
         if (!state) return null;
         return state[property];
+
+    }
+
+    async incrementGeneratedVideoCount(id: number) {
+        return await this.repository.incrementGeneratedVideoCount(id);
     }
 }
 

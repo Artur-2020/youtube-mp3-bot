@@ -9,7 +9,7 @@ dotenvConfig({
     path: envPath,
 });
 
-const requiredEnvVars = ['BOT_TOKEN'];
+const requiredEnvVars = ['BOT_TOKEN', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'FREE_VIDEO_COUNT'];
 
 requiredEnvVars.forEach((varName) => {
     if (!process.env[varName]) {
@@ -24,4 +24,5 @@ export const config = {
     database: process.env.DB_NAME || 'my_database',
     username: process.env.DB_USER || 'my_user',
     password: process.env.DB_PASSWORD || 'my_password',
+    freeVideoCount: parseInt(process.env.FREE_VIDEO_COUNT as string) || 0
 };

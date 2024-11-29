@@ -31,10 +31,11 @@ async function downloadHandler(youtubeUrl: string, chatId: number): Promise<void
         await updateProcessStatus({bot, chatId, status: STATUSES.SENDING_TO_USER});
 
         console.log(STATUSES.FINISHED);
-        await updateProcessStatus({chatId, bot, status: STATUSES.FINISHED})
+        await updateProcessStatus({chatId, bot, status: STATUSES.FINISHED});
         await StatesService.updateState(chatId, {state: STATE_VALUES.ACTIVE});
 
         await bot.sendAudio(chatId, audioPath);
+        await StatesService.incrementGeneratedVideoCount(chatId);
         await removeTemporaryFiles({audioPath, videoPath});
     } catch (error) {
         throw error;
