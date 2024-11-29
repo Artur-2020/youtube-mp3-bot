@@ -6,6 +6,8 @@ import {
     infoHelper
 } from './commands';
 import {MessageHandlerInput} from "../interfaces";
+import {StatesService} from "../services";
+import {STATE_VALUES} from "../constants";
 
 
 export async function messageHandler({message, bot}: MessageHandlerInput) {
@@ -16,6 +18,7 @@ export async function messageHandler({message, bot}: MessageHandlerInput) {
 
     switch (responseText) {
         case '/start':
+            await StatesService.updateState(chatId, {state: STATE_VALUES.ACTIVE});
             await startHandler({chatId, bot})
             break;
 
@@ -24,10 +27,12 @@ export async function messageHandler({message, bot}: MessageHandlerInput) {
             break;
 
         case '/info':
+            await StatesService.updateState(chatId, {state: STATE_VALUES.ACTIVE});
             await infoHelper({chatId, bot});
             break;
 
         case '/help':
+            await StatesService.updateState(chatId, {state: STATE_VALUES.ACTIVE});
             await helpHandler({chatId, bot});
             break;
         default:

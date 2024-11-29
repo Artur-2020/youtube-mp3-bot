@@ -30,12 +30,12 @@ State.init(
             primaryKey: true,
         },
         chatId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             allowNull: false,
             unique: true
         },
         userId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             allowNull: false,
             unique: true
         },
