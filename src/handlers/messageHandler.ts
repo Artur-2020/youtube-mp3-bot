@@ -1,4 +1,10 @@
-import {startHandler, audioHandler, otherHandler} from './commands';
+import {
+    startHandler,
+    audioHandler,
+    otherHandler,
+    helpHandler,
+    infoHelper
+} from './commands';
 import {MessageHandlerInput} from "../interfaces";
 
 
@@ -14,14 +20,16 @@ export async function messageHandler({message, bot}: MessageHandlerInput) {
             break;
 
         case '/audio':
-            // Set state to expect a YouTube link
             await audioHandler({chatId, bot});
             break;
 
-        case '/lyrics':
-            // Reset user state
+        case '/info':
+            await infoHelper({chatId, bot});
             break;
 
+        case '/help':
+            await helpHandler({chatId, bot});
+            break;
         default:
             await otherHandler({chatId, bot, text: text || ''});
             break;

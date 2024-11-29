@@ -15,6 +15,7 @@ export default class State extends Model<StateAttributes, StateCreationAttribute
     public userId!: number;
     public username!: string;
     public full_name!: string;
+    public generatedAudioCount!: number;
     public status!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -37,6 +38,11 @@ State.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true
+        },
+        generatedAudioCount: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
         },
         username: {
             type: DataTypes.STRING,

@@ -16,7 +16,8 @@ export default async function (message: Message) {
             status: STATUSES.ACTIVE,
             username: username || null,
             userId,
-            full_name: fullName
+            full_name: fullName,
+            generatedAudioCount: 0
         };
 
         await StatesService.createState(newData);
