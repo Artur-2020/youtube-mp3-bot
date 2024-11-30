@@ -11,6 +11,7 @@ export interface createStateDTO {
     status: string;
     generatedAudioCount: number
 }
+
 export interface StateAttributes extends createStateDTO {
     id: number;
     createdAt?: Date;
@@ -43,4 +44,18 @@ export interface MessageHandlerInput {
 export interface RemoveTemporaryFilesInput {
     audioPath: string;
     videoPath: string;
+}
+
+export interface VideoInfo {
+    author: string;
+    title: string;
+    duration?: string | number
+}
+
+
+export interface SendAudioInput {
+    info: VideoInfo;
+    bot: TelegramBot;
+    chatId: number;
+    audioPath: string;
 }
