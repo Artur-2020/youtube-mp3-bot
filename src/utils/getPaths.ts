@@ -1,5 +1,6 @@
 import {resolve, join} from 'path';
 import * as fsExtra from "fs-extra";
+import {VideoInfo} from "../interfaces";
 
 const resolvedPath = resolve();
 const videoDir = 'downloads';
@@ -15,7 +16,7 @@ export const getVideoPath = () => {
 }
 
 
-export const getAudioPath = () => {
-    return join(resolvedPath, audioDir, `audio_${Date.now()}.mp3`);
+export const getAudioPath = (data: VideoInfo) => {
+    return join(resolvedPath, audioDir, `${data.title}.mp3`);
 }
 
