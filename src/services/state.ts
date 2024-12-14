@@ -8,26 +8,37 @@ class StateService {
         this.repository = repository;
     }
 
+    /**
+     * Create state data
+     * @param data
+     */
+
     async createState(data: createStateDTO) {
-        return await this.repository.createState(data);
+        return await this.repository.create(data);
     }
 
+    /**
+     * Get state by chatid
+     * @param chatId
+     */
     async getStateByChatId(chatId: number) {
         return await this.repository.getStateByChatId(chatId);
     }
 
-    async getAllStates() {
-        return await this.repository.getAllStates();
-    }
-
+    /**
+     * Update state by chatId
+     * @param id
+     * @param data
+     */
     async updateState(id: number, data: Partial<createStateDTO>) {
-        return await this.repository.updateState(id, data);
+        return await this.repository.update({chatId: id}, data);
     }
 
-    async deleteState(id: number) {
-        return await this.repository.deleteState(id);
-    }
-
+    /**
+     * Get specific property from state like status or state
+     * @param chatId
+     * @param property
+     */
     async getStatePropertyByChatId(chatId: number, property: keyof createStateDTO) {
         const state = await this.repository.getStateByChatId(chatId, [property]);
         if (!state) return null;
@@ -35,6 +46,10 @@ class StateService {
 
     }
 
+    /**
+     * Increment generated video count for the chat
+     * @param id
+     */
     async incrementGeneratedVideoCount(id: number) {
         return await this.repository.incrementGeneratedVideoCount(id);
     }

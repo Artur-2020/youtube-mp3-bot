@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db';
 import {StateAttributes} from '../interfaces';
+import User from "./user";
 // Define attributes interface
 
 
@@ -10,11 +11,8 @@ interface StateCreationAttributes extends Optional<StateAttributes, 'id'> {}
 // Define the State model
 export default class State extends Model<StateAttributes, StateCreationAttributes> implements StateAttributes {
     public id!: number;
-    public chatId!: number;
     public state!: string;
-    public userId!: number;
-    public username!: string;
-    public full_name!: string;
+    public chatId!: number;
     public generatedAudioCount!: number;
     public status!: string;
     public readonly createdAt!: Date;
@@ -31,27 +29,12 @@ State.init(
         },
         chatId: {
             type: DataTypes.BIGINT,
-            allowNull: false,
-            unique: true
-        },
-        userId: {
-            type: DataTypes.BIGINT,
-            allowNull: false,
             unique: true
         },
         generatedAudioCount: {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            unique: true
-        },
-        full_name: {
-          type: DataTypes.STRING,
-          allowNull: true
         },
         status: {
             type: DataTypes.STRING,

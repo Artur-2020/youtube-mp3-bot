@@ -2,6 +2,12 @@ import ytdl from '@distube/ytdl-core';
 import * as fs from 'fs';
 import {VideoInfo} from "../interfaces";
 
+/**
+ * Download video from YouTube
+ * @param videoPath
+ * @param youtubeUrl
+ */
+
 export default async function downloadVideo(videoPath: string, youtubeUrl: string): Promise<VideoInfo> {
     try {
         // Fetch video information

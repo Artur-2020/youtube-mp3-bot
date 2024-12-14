@@ -3,6 +3,12 @@ import {getBotInstance} from "../instances/bot";
 import {RESPONSES} from "../constants";
 
 const {somethingWentWrong, enospcError, ffmpegError} = RESPONSES;
+
+/**
+ * Global error handling function
+ * @param chatId
+ * @param error
+ */
 export async function handleError(chatId: number, error: Error) {
     const bot = await getBotInstance();
     console.error('Error:', error);

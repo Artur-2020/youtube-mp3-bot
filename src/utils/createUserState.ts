@@ -2,6 +2,10 @@ import {StatesService} from '../services/index'
 import {STATE_VALUES, STATUSES} from "../constants";
 import {Message, User} from "node-telegram-bot-api";
 
+/**
+ * Create user state if not exists
+ * @param message
+ */
 export default async function (message: Message) {
     const {id: chatId} = message.chat;
 

@@ -1,1 +1,2 @@
-export {default as StatesModel} from './State';
+export {default as StatesModel} from './state';
+export {default as UsersModel} from './user';
