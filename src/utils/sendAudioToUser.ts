@@ -1,5 +1,12 @@
 import {SendAudioInput} from "../interfaces";
 
+/**
+ * Send generated audio to user
+ * @param info
+ * @param bot
+ * @param chatId
+ * @param audioPath
+ */
 export default async function downloadVideo({info, bot, chatId, audioPath}: SendAudioInput): Promise<void> {
     try {
         const {title, author, duration} = info;

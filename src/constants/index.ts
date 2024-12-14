@@ -45,7 +45,7 @@ export const COMMANDS_RESPONSES = {
     audio: 'Please send a YouTube link, and I will convert it to audio.',
 };
 export const RESPONSES = {
-    alreadyFiveVideos: '🎉 You already have 5 generated audio files! Keep enjoying the features of our bot. If you need help or have questions, feel free to use /help. 😊',
+    alreadyMaxCount: `🎉 You already have  ${config.freeVideoCount} generated audio files! Keep enjoying the features of our bot. If you need help or have questions, feel free to use /help. 😊`,
     somethingWentWrong: 'Something went wrong! Please try again later.',
     invalidYoutubeURL: 'Please send a valid YouTube URL!',
     enospcError: 'Server storage is full. Please try again later.',

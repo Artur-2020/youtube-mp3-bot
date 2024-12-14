@@ -9,7 +9,11 @@ import {MessageHandlerInput} from "../interfaces";
 import {StatesService} from "../services";
 import {STATE_VALUES} from "../constants";
 
-
+/**
+ * Function for handle messages from the user and check which type of answer to send
+ * @param message
+ * @param bot
+ */
 export async function messageHandler({message, bot}: MessageHandlerInput) {
 
     const {chat: {id: chatId}, text} = message;

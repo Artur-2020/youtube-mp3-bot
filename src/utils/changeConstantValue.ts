@@ -1,3 +1,9 @@
+/**
+ * Change string constants with {} with variable value like Hello {name} = hello Arthur
+ * @param string
+ * @param values
+ */
+
 export default function (
     string: string,
     values: Record<string, string | number | boolean> = {},

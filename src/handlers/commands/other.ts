@@ -5,6 +5,13 @@ import downloadHandler from "../downloadHandler";
 import {OtherCommandInput} from "../../interfaces";
 
 const {invalidCommand} = RESPONSES;
+
+/**
+ * Handler for the command other, making validations for YouTube link if user waiting for video and handle downloading
+ * @param chatId
+ * @param bot
+ * @param text
+ */
 export default async function ({chatId, bot, text}: OtherCommandInput) {
     const currentState = await StatesService.getStatePropertyByChatId(chatId, 'state');
 

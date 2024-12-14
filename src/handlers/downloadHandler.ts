@@ -8,6 +8,11 @@ import removeTemporaryFiles from '../utils/removeTemproraryFiles';
 import updateProcessStatus from "../utils/updateProcessStatus";
 import sendAudio from '../utils/sendAudioToUser';
 
+/**
+ * Downowading the video from youtube converting to audio and send to user with managing of the statuses and states
+ * @param youtubeUrl
+ * @param chatId
+ */
 async function downloadHandler(youtubeUrl: string, chatId: number): Promise<void> {
     const bot = await getBotInstance();
 
@@ -22,8 +27,7 @@ async function downloadHandler(youtubeUrl: string, chatId: number): Promise<void
         await updateProcessStatus({bot, chatId, status: STATUSES.DOWNLOADING_VIDEO});
         const videoInfo = await downloadVideo(videoPath, youtubeUrl);
 
-        const {title, author} = videoInfo;
-        const audioPath = getAudioPath({title, author});
+        const audioPath = getAudioPath();
 
         console.log(STATUSES.CONVERT_TO_AUDIO);
         await updateProcessStatus({bot, chatId, status: STATUSES.CONVERT_TO_AUDIO});

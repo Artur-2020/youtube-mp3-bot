@@ -1,35 +1,28 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db';
-import {StateAttributes} from '../interfaces';
+import {UserAttributes} from '../interfaces';
+import State from "./state";
 // Define attributes interface
 
 
 // Define optional attributes for model creation
-interface StateCreationAttributes extends Optional<StateAttributes, 'id'> {}
+interface UserCreationAttributes extends UserAttributes {}
 
 // Define the State model
-export default class State extends Model<StateAttributes, StateCreationAttributes> implements StateAttributes {
-    public id!: number;
+export default class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public chatId!: number;
-    public state!: string;
     public userId!: number;
     public username!: string;
     public full_name!: string;
-    public generatedAudioCount!: number;
-    public status!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
 // Initialize the model
-State.init(
+User.init(
     {
-        id: {
-            type: DataTypes.BIGINT,
-            autoIncrement: true,
-            primaryKey: true,
-        },
         chatId: {
+            primaryKey: true,
             type: DataTypes.BIGINT,
             allowNull: false,
             unique: true
@@ -39,33 +32,28 @@ State.init(
             allowNull: false,
             unique: true
         },
-        generatedAudioCount: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0
-        },
         username: {
             type: DataTypes.STRING,
             allowNull: true,
             unique: true
         },
         full_name: {
-          type: DataTypes.STRING,
-          allowNull: true
-        },
-        status: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true
         },
-        state: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
     },
     {
         sequelize,
-        tableName: 'states',
-        modelName: 'State',
+        tableName: 'users',
+        modelName: 'User',
         timestamps: true
     }
 );
+User.hasOne(State, {
+    foreignKey: 'chatId',
+    onDelete: 'CASCADE',
+});
+
+State.belongsTo(User, {
+    foreignKey: 'chatId',
+});
