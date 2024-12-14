@@ -17,6 +17,13 @@ class UserService {
         return await this.repository.create(data);
     }
 
+    /**
+     * Get User by chatid
+     * @param chatId
+     */
+    async getUserById(chatId: number) {
+        return await this.repository.findOne({chatId});
+    }
 }
 
 // Exporting a reusable instance of UserService with a repository

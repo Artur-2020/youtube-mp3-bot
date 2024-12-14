@@ -22,6 +22,13 @@ export interface createUserDTO {
     userId: number
 }
 
+export interface createLogDTO {
+    chatId: number;
+    message: string;
+    type: string;
+}
+
+export interface LogAttributes extends createLogDTO, DBAttributes {}
 export interface UserAttributes extends createUserDTO, Omit<DBAttributes, 'id'> {}
 
 export interface UpdateStateStatus {

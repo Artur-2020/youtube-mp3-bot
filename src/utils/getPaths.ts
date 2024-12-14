@@ -11,7 +11,7 @@ const audioDir = 'downloads/audio';
  */
 export const ensureAudioVideoDirsExists = async () => {
     await fsExtra.ensureDir(videoDir);
-    await fsExtra.ensureDir(videoDir);
+    await fsExtra.ensureDir(audioDir);
 
 }
 
