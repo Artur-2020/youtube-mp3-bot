@@ -5,7 +5,7 @@ import {createLogDTO} from "../interfaces";
  * Function for create beautiful log
  * @param data
  */
-export default function LOG(data: createLogDTO) {
-    LogsService.LOG(data);
+export default async function LOG(data: createLogDTO) {
+    await LogsService.LOG(data);
 
 }

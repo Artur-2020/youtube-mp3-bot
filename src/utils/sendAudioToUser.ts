@@ -7,12 +7,12 @@ import {SendAudioInput} from "../interfaces";
  * @param chatId
  * @param audioPath
  */
-export default async function downloadVideo({info, bot, chatId, audioPath}: SendAudioInput): Promise<void> {
+export default async function sendAudioToUser({info, bot, chatId, audio}: SendAudioInput): Promise<void> {
     try {
         const {title, author, duration} = info;
-        await bot.sendAudio(chatId, audioPath, {
+        await bot.sendAudio(chatId, audio, {
             title,
-            performer: author,
+            performer: author.name,
             duration: duration as number,
         });
     } catch (e) {

@@ -1,4 +1,4 @@
-import {youtubeLinkValidator, audioCountValidator} from '../../validations/index'
+import {youtubeLinkValidator, audioCountValidator, audioLengthValidator} from '../../validations/index'
 import {StatesService} from "../../services";
 import {STATE_VALUES, RESPONSES} from "../../constants";
 import downloadHandler from "../downloadHandler";
@@ -19,6 +19,7 @@ export default async function ({chatId, bot, text}: OtherCommandInput) {
         case STATE_VALUES.WAITING_FOR_VIDEO:
             youtubeLinkValidator(text);
             await audioCountValidator(chatId);
+            await audioLengthValidator(text);
             await downloadHandler(text, chatId);
             break;
         default :

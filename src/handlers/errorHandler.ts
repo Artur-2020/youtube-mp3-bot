@@ -28,7 +28,7 @@ export async function handleError(chatId: number, error: Error) {
     }
 
 
-    LOG({
+    await LOG({
         type,
         message: error.message,
         chatId

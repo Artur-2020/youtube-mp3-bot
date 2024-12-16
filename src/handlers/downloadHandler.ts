@@ -1,15 +1,11 @@
-import downloadVideo from '../utils/downloadVideo';
-import convertToAudio from '../utils/convertVideoToAudio';
+import audioProcess from '../utils/audioProcess';
 import {getBotInstance} from '../instances/bot';
-import {ensureAudioVideoDirsExists, getVideoPath, getAudioPath} from '../utils/getPaths'
 import {StatesService} from "../services";
 import {STATE_VALUES, STATUSES} from "../constants";
-import removeTemporaryFiles from '../utils/removeTemproraryFiles';
 import updateProcessStatus from "../utils/updateProcessStatus";
-import sendAudio from '../utils/sendAudioToUser';
 
 /**
- * Downowading the video from youtube converting to audio and send to user with managing of the statuses and states
+ * Downloading the video from YouTube22 converting to audio and send to user with managing of the statuses and states
  * @param youtubeUrl
  * @param chatId
  */
@@ -20,31 +16,14 @@ async function downloadHandler(youtubeUrl: string, chatId: number): Promise<void
         console.log(STATUSES.STARTED);
         await updateProcessStatus({bot, chatId, status: STATUSES.STARTED});
 
-        await ensureAudioVideoDirsExists();
-        const videoPath = getVideoPath();
-
         console.log(STATUSES.DOWNLOADING_VIDEO);
         await updateProcessStatus({bot, chatId, status: STATUSES.DOWNLOADING_VIDEO});
-        const videoInfo = await downloadVideo(videoPath, youtubeUrl);
-
-        const audioPath = getAudioPath();
-
-        console.log(STATUSES.CONVERT_TO_AUDIO);
-        await updateProcessStatus({bot, chatId, status: STATUSES.CONVERT_TO_AUDIO});
-        await convertToAudio(videoPath, audioPath);
-
-        console.log(STATUSES.SENDING_TO_USER);
-        await updateProcessStatus({bot, chatId, status: STATUSES.SENDING_TO_USER});
-
-
-        await sendAudio({info: videoInfo, bot, chatId, audioPath });
+        await audioProcess(youtubeUrl, bot, chatId);
 
         console.log(STATUSES.FINISHED);
-        await updateProcessStatus({chatId, bot, status: STATUSES.FINISHED});
         await StatesService.updateState(chatId, {state: STATE_VALUES.ACTIVE});
 
         await StatesService.incrementGeneratedVideoCount(chatId);
-        await removeTemporaryFiles({audioPath, videoPath});
     } catch (error) {
         throw error;
     }

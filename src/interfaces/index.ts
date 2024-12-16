@@ -1,6 +1,8 @@
 import TelegramBot, {Message} from "node-telegram-bot-api";
 import exp from "node:constants";
 import {STATUSES} from "../constants";
+import {Stream} from "node:stream";
+import {Author} from "@distube/ytdl-core";
 interface DBAttributes {
     id: number;
     createdAt?: Date;
@@ -53,13 +55,8 @@ export interface MessageHandlerInput {
     bot: TelegramBot
 }
 
-export interface RemoveTemporaryFilesInput {
-    audioPath: string;
-    videoPath: string;
-}
-
 export interface VideoInfo {
-    author: string;
+    author: Author;
     title: string;
     duration?: string | number
 }
@@ -69,5 +66,5 @@ export interface SendAudioInput {
     info: VideoInfo;
     bot: TelegramBot;
     chatId: number;
-    audioPath: string;
+    audio: Stream;
 }

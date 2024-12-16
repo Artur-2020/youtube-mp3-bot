@@ -45,6 +45,7 @@ export const COMMANDS_RESPONSES = {
     audio: 'Please send a YouTube link, and I will convert it to audio.',
 };
 export const RESPONSES = {
+    maximumLengthReached: 'The video length exceeds the maximum allowed duration of 30 minutes.',
     alreadyMaxCount: `🎉 You already have  ${config.freeVideoCount} generated audio files! Keep enjoying the features of our bot. If you need help or have questions, feel free to use /help. 😊`,
     somethingWentWrong: 'Something went wrong! Please try again later.',
     invalidYoutubeURL: 'Please send a valid YouTube URL!',
