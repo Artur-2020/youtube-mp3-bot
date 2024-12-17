@@ -1,9 +1,11 @@
 FROM node:22.12
 
+# Install ffmpeg (Debian/Ubuntu-based)
+RUN apt install ffmpeg
+
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
 
 COPY . .
