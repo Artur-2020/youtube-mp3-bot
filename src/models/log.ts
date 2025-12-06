@@ -26,7 +26,7 @@ Log.init(
         chatId: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            unique: false
+            unique: true
         },
 
         type: {
